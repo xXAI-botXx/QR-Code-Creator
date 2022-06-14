@@ -9,7 +9,7 @@ def exit():
     sys.exit()
 
 def get_input(msg:str):
-    user_input = input(msg).lower()
+    user_input = input(msg)
 
     if user_input == "exit":
         exit()
@@ -71,8 +71,8 @@ def change_and_show(qr_code):
         qr_code.create_qr_code()
         qr_code.save("./output")
 
-        msg = "Do you want to change the style? [size, fill_color, back_color, box_size, style, no]:"
-        choice = get_input_key(msg, ['size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'use image', 'no'])
+        msg = "Do you want to change the style? [size, fill_color, back_color, box_size, type, color mask, no]:"
+        choice = get_input_key(msg, ['size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'no'])
         if choice == 'n':
             print("Nice, your QR-Code is in the ouput directory.")
             break
@@ -108,22 +108,23 @@ def change_and_show(qr_code):
             color_back_val = get_input_color(msg)
 
             qr_code.set_mask(mask_val, color_front_val, color_back_val)
-        elif choice == 'use image':
-            msg = "Upload an image in the input directory with named as input. Which type is it (png/...):"
-            val = get_input(msg)
-            qr_code.set_image_back(img_type=val)
+        #elif choice == 'use image':
+        #    msg = "Upload an image in the input directory with named as input. Which type is it (png/...):"
+        #    val = get_input(msg)
+        #    qr_code.set_image_back(img_type=val)
 
         
         qr_code.save(path="./output")
 
 
 if __name__ == "__main__":
-    msg = "Do you want to create a QR-Code or read one? Type create or read:"
-    choice = get_input_key(msg, ['create', 'read'])
+    #msg = "Do you want to create a QR-Code or read one? Type create or read:"
+    #choice = get_input_key(msg, ['create', 'read'])
 
-    if choice == 'create':
-        content = get_input("Type the Content which the QR-Code should contains:")
-        qr_code = qr_code_creator.QR_Code(content)
-        change_and_show(qr_code)
-    elif 'read':
-        pass
+    #if choice == 'create':
+    content = get_input("Type the Content which the QR-Code should contains:")
+    print("hey")
+    qr_code = qr_code_creator.QR_Code(content)
+    change_and_show(qr_code)
+    #elif 'read':
+    #    pass
