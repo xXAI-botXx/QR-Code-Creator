@@ -123,7 +123,6 @@ if __name__ == "__main__":
 
     #if choice == 'create':
     content = get_input("Type the Content which the QR-Code should contains:")
-    print("hey")
     qr_code = qr_code_creator.QR_Code(content)
     change_and_show(qr_code)
     #elif 'read':
