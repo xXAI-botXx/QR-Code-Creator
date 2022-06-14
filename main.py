@@ -95,7 +95,7 @@ def change_and_show(qr_code):
         elif choice == 'type':
             msg = "Type square, rounded, circle, gapped square, vertical bar or horizontal bar:"
             val = get_input_key(msg, ['off', 'square', 'rounded', 'circle', 'gapped square', 'vertical bar', 'horizontal bar'])
-            qr_code.set_type(val)
+            qr_code.set_draw_type(val)
         elif choice == 'mask':
             msg = "Type :"
             mask_val = get_input_key(msg, ["solid fill", "square gradient", "radial gradient"\
@@ -107,7 +107,7 @@ def change_and_show(qr_code):
             msg = "Type a color for background with 3 values (rgb), normal is (0,0,0)):"
             color_back_val = get_input_color(msg)
 
-            qr_code.set_mask(mask_val, color_front_val, color_back_val)
+            qr_code.set_color_mask(mask_val, color_front_val, color_back_val)
         #elif choice == 'use image':
         #    msg = "Upload an image in the input directory with named as input. Which type is it (png/...):"
         #    val = get_input(msg)
