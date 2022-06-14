@@ -105,7 +105,7 @@ def change_and_show(qr_code):
             val = get_input_key(msg, ['off', 'square', 'rounded', 'circle', 'gapped square', 'vertical bar', 'horizontal bar'])
             qr_code.set_draw_type(val)
         elif choice in ['mask', 'color mask', 'color_mask']:
-            msg = "Type :"
+            msg = "Type solid fill, square gradient, radial gradient, horizontal gradient or vertical gradient:"
             mask_val = get_input_key(msg, ["solid fill", "square gradient", "radial gradient"\
                                             "horizontal gradient", "vertical gradient"])
 
