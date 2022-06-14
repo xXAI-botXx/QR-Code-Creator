@@ -94,7 +94,7 @@ def change_and_show(qr_code):
             qr_code.set_background_color(val)
         elif choice == 'type':
             msg = "Type square, rounded, circle, gapped square, vertical bar or horizontal bar:"
-            val = get_input_between(msg, ['off', 'square', 'rounded', 'circle', 'gapped square', 'vertical bar', 'horizontal bar'])
+            val = get_input_key(msg, ['off', 'square', 'rounded', 'circle', 'gapped square', 'vertical bar', 'horizontal bar'])
             qr_code.set_type(val)
         elif choice == 'mask':
             msg = "Type :"
