@@ -90,7 +90,7 @@ class QR_Code(object):
         elif draw_type == "horizontal bar":
             self.draw_type = HorizontalBarsDrawer()
 
-    def set_content(content):
+    def set_content(self, content):
         self.content = content
         self.create_qr_code()
 
