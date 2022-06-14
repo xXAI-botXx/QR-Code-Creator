@@ -73,7 +73,7 @@ def change_and_show(qr_code):
         qr_code.save("./output")
 
         print("\n\nQR-Code Preview:\n")
-        output = climage.convert('./output/output.png')
+        output = climage.convert('./output/output.png', width=60, is_256color=True)
         print(output)
 
         msg = "Do you want to change something? [content, size, fill_color, back_color, box_size, type, color mask, no]:"
