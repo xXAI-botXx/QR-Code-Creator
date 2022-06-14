@@ -72,7 +72,7 @@ def change_and_show(qr_code):
         qr_code.create_qr_code()
         qr_code.save("./output")
 
-        peint("\n\nQR-Code Preview:\n")
+        print("\n\nQR-Code Preview:\n")
         output = climage.convert('./output/output.png')
         print(output)
 
