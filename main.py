@@ -1,6 +1,7 @@
 import qr_code_creator
 import sys
 from ast import literal_eval
+import climage
 
 def exit():
     # delete output and input files -> or remember user
@@ -67,13 +68,20 @@ def get_input_key(msg:str, keys:list):
 
 def change_and_show(qr_code):
     while True:
-        print("\nYou find the QR-Code in the output directory.\n")
+        print("\nYou find the QR-Code in the output directory and can downloaded there.\n")
         qr_code.create_qr_code()
         qr_code.save("./output")
 
-        msg = "Do you want to change the style? [size, fill_color, back_color, box_size, type, color mask, no]:"
-        choice = get_input_key(msg, ['size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'no'])
-        if choice == 'no':
+        peint("\n\nQR-Code Preview:\n")
+        output = climage.convert('./output/output.png')
+        print(output)
+
+        msg = "Do you want to change something? [content, size, fill_color, back_color, box_size, type, color mask, no]:"
+        choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'no'])
+        if choice == "content":
+            content = get_input("Type the Content which the QR-Code should contains:")
+            qr_code.set_content(content)
+        elif choice == 'no':
             print("Nice, your QR-Code is in the ouput directory.")
             break
         elif choice == 'size':
