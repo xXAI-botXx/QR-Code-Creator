@@ -99,10 +99,10 @@ class QR_Code(object):
         self.created_qr_code.add_data(self.content)
         self.created_qr_code.make(fit=True)
 
-    def save(self, path:str, name="output.png", img_path="./input", img_name="input", img_type=self.img_type):
+    def save(self, path:str, name="output.png", img_path="./input", img_name="input"):
         if self.img_back == True:
             self.img = qr.make_image(fill_color=self.fill_color, back_color=self.background_color, image_factory=StyledPilImage, color_mask=self.mask, \
-                                                                    module_drawer=self.draw_type, embeded_image_path=img_path+"/"+img_name+"."+img_type)
+                                                                    module_drawer=self.draw_type, embeded_image_path=img_path+"/"+img_name+"."+self.img_type)
         else:
            self.img = qr.make_image(fill_color=self.fill_color, back_color=self.background_color, image_factory=StyledPilImage, color_mask=self.mask, \
                                                                     module_drawer=self.draw_type) 
