@@ -73,7 +73,7 @@ def change_and_show(qr_code):
 
         msg = "Do you want to change the style? [size, fill_color, back_color, box_size, type, color mask, no]:"
         choice = get_input_key(msg, ['size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'no'])
-        if choice == 'n':
+        if choice == 'no':
             print("Nice, your QR-Code is in the ouput directory.")
             break
         elif choice == 'size':
