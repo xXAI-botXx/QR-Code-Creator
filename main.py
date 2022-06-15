@@ -105,9 +105,9 @@ def change_and_show(qr_code):
             val = get_input_key(msg, ['off', 'square', 'rounded', 'circle', 'gapped square', 'vertical bar', 'horizontal bar'])
             qr_code.set_draw_type(val)
         elif choice in ['mask', 'color mask', 'color_mask']:
-            msg = "Type solid fill, square gradient, radial gradient, horizontal gradient or vertical gradient:"
-            mask_val = get_input_key(msg, ["solid fill", "square gradient", "radial gradient"\
-                                            "horizontal gradient", "vertical gradient"])
+            msg = "Type solid fill, square gradient, radial gradient, horizontal or vertical:"
+            mask_val = get_input_key(msg, ["solid fill", "square gradient", "radial gradient", \
+                                            "horizontal gradient", "horizontal", "vertical gradient", "vertical"])
 
             if mask == 'off':
                 qr_code.set_color_mask(mask_val)
@@ -130,7 +130,7 @@ def change_and_show(qr_code):
                 color_back_val = get_input_color(msg)
 
                 qr_code.set_color_mask(mask_val, center_color=color_center_val, edge_color=color_edge_val, back_color=color_back_val)
-            elif mask == "horizontal gradient":
+            elif mask in ["horizontal gradient", "horizontal"]:
                 msg = "Type a color for the left with 3 values (rgb), normal is (0,0,0):"
                 color_left_val = get_input_color(msg)
 
@@ -141,7 +141,7 @@ def change_and_show(qr_code):
                 color_back_val = get_input_color(msg)
 
                 qr_code.set_color_mask(mask_val, left_color=color_left_val, right_color=color_right_val, back_color=color_back_val)
-            elif mask == "vertical gradient":
+            elif mask in ["vertical gradient", "vertical"]:
                 msg = "Type a color for the top with 3 values (rgb), normal is (0,0,0):"
                 color_top_val = get_input_color(msg)
 
