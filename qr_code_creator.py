@@ -104,7 +104,7 @@ class QR_Code(object):
         #self.created_qr_code.make(fit=True)
 
     def save(self, path:str, name="output.png", img_path="./input", img_name="input"):
-        if self.created_qr_code == None or not hasattr(self, 'created_qr_code'):
+        if not hasattr(self, 'created_qr_code'):
             self.create_qr_code()
 
         if self.img_back == True:

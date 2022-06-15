@@ -2,15 +2,27 @@ import qr_code_creator
 import sys
 from ast import literal_eval
 import climage
+import os
 
 def exit():
     # delete output and input files -> or remember user
-    choice = get_input_key("Should I delete the QRCode in the ouptu directory?(y/n)", ['n', 'y'])
+    choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip)", ['n', 'y', ''])
     if choice == 'y':
-        qr_code = qr_code_creator.QR_Code("Love", fill_color=(240, 70, 50), background_color=(40, 20, 20))
-        qr_code.save(path="./output")
-    elif choice == 'n':
+        # calc name
+        files = os.listdir("./backup")
+        counter = 0
+        name = f"qrcode_{str(counter).zfill(4)}.png"    # variant 1
+        while name in files:
+            counter += 1
+            name = f"qrcode_{counter:04}.png"
+
+        qr_code.save(path="./backup", name=name)
+    elif choice in ['n', '']:
         pass
+
+    qr_code = qr_code_creator.QR_Code("make love not fear", fill_color=(240, 70, 50), background_color=(40, 20, 20))
+    qr_code.save(path="./output")
+
     # now exit
     sys.exit()
 
