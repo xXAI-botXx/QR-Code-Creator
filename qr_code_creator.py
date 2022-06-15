@@ -152,9 +152,11 @@ class QR_Code(object):
             self.create_qr_code()
 
         if self.img_back == True:
-            self.img = self.created_qr_code.make_image(image_factory=StyledPilImage, color_mask=self.mask, module_drawer=self.draw_type, embeded_image_path=img_path+"/"+img_name+"."+self.img_type)
+            self.img = self.created_qr_code.make_image(fill_color=self.front_color, back_color=self.background_color, \
+                                                        image_factory=StyledPilImage, color_mask=self.mask, module_drawer=self.draw_type, embeded_image_path=img_path+"/"+img_name+"."+self.img_type)
         else:
-           self.img = self.created_qr_code.make_image(image_factory=StyledPilImage, module_drawer=self.draw_type, color_mask=self.mask)
+           self.img = self.created_qr_code.make_image(fill_color=self.front_color, back_color=self.background_color, \
+                                                        image_factory=StyledPilImage, module_drawer=self.draw_type, color_mask=self.mask)
 
         self.img.save(path+"/"+name)
 
