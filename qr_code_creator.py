@@ -18,6 +18,8 @@ from qrcode.image.styles.colormasks import HorizontalGradiantColorMask
 from qrcode.image.styles.colormasks import VerticalGradiantColorMask
 #from qrcode.image.styles.colormasks import ImageColorMask
 
+import random
+
 
 class QR_Code(object):
 
@@ -72,7 +74,6 @@ class QR_Code(object):
             self.mask = HorizontalGradiantColorMask(back_color=self.background_color, left_color=self.left_color, right_color=self.right_color)
         elif type(self.mask) == VerticalGradiantColorMask:
             self.mask = VerticalGradiantColorMask(back_color=self.background_color, top_color=self.top_color, bottom_color=self.bottom_color)
-
 
     def set_border(self, border):
         self.border = border
@@ -146,6 +147,36 @@ class QR_Code(object):
         self.created_qr_code = qrcode.QRCode(border=self.border, version=self.size, box_size=self.box_size)
         self.created_qr_code.add_data(self.content)
         #self.created_qr_code.make(fit=True)
+
+    # static
+    def random_color():
+        return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+    def random_creation(self):
+        self.front_color = QR_Code.random_color() 
+        self.background_color = QR_Code.random_color()
+        self.center_color = QR_Code.random_color()
+        self.edge_color = QR_Code.random_color()
+        self.left_color = QR_Code.random_color()
+        self.right_color = QR_Code.random_color()
+        self.top_color = QR_Code.random_color()
+        self.bottom_color = QR_Code.random_color()
+
+        self.draw_type  = random.choice([SquareModuleDrawer(), RoundedModuleDrawer(), GappedSquareModuleDrawer(), \
+                                        CircleModuleDrawer(), VerticalBarsDrawer(), HorizontalBarsDrawer()])
+
+        self.mask = random.choice([
+                                SolidFillColorMask(front_color=self.front_color, back_color=self.background_color), 
+                                SquareGradiantColorMask(back_color=self.background_color, center_color=self.center_color, edge_color=self.edge_color),
+                                RadialGradiantColorMask(back_color=self.background_color, center_color=self.center_color, edge_color=self.edge_color),
+                                HorizontalGradiantColorMask(back_color=self.background_color, left_color=self.left_color, right_color=self.right_color),
+                                VerticalGradiantColorMask(back_color=self.background_color, top_color=self.top_color, bottom_color=self.bottom_color)
+                                    ])
+    
+
+        # not randomized yet
+        # border=4, size=1, box_size=10
+                                    
 
     def save(self, path:str, name="output.png", img_path="./input", img_name="input"):
         if not hasattr(self, 'created_qr_code'):
