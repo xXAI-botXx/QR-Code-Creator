@@ -56,19 +56,21 @@ class QR_Code(object):
         self.box_size = box_size
         self.create_qr_code()
 
-    def set_color_mask(self, mask, front_color=(0,0,0), back_color=(255,255,255)):
+    def set_color_mask(self, mask, front_color=(0,0,0), back_color=(255,255,255), center_color=(0,0,0), \
+                                    edge_color=(0, 0, 255), left_color=(0, 0, 0), right_color=(0, 0, 255), \
+                                    top_color=(0, 0, 0), bottom_color=(0, 0, 255)):
         if mask == 'off':
-            self.mask = SolidFillColorMask(front_color=(0,0,0), back_color=(255,255,255))
+            self.mask = SolidFillColorMask(front_color=front_color, back_color=back_color)
         elif mask == "solid fill":
             self.mask = SolidFillColorMask(front_color=front_color, back_color=back_color)
         elif mask == "square gradient":
-            self.mask = SquareGradiantColorMask(front_color=front_color, back_color=back_color)
+            self.mask = SquareGradiantColorMask(back_color=back_color, center_color=center_color, edge_color=edge_color)
         elif mask == "radial gradient":
-            self.mask = RadialGradiantColorMask(front_color=front_color, back_color=back_color)
+            self.mask = RadialGradiantColorMask(back_color=back_color, center_color=center_color, edge_color=edge_color)
         elif mask == "horizontal gradient":
-            self.mask = HorizontalGradiantColorMask(front_color=front_color, back_color=back_color)
+            self.mask = HorizontalGradiantColorMask(back_color=back_color, left_color=left_color, right_color=right_color)
         elif mask == "vertical gradient":
-            self.mask = VerticalGradiantColorMask(front_color=front_color, back_color=back_color)
+            self.mask = VerticalGradiantColorMask(back_color=back_color, top_color=top_color, bottom_color=bottom_color)
         #elif mask == "image":
         #    self.mask = ImageColorMask(front_color=front_color, back_color=back_color)
 
