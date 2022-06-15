@@ -100,8 +100,8 @@ def change_and_show(qr_code):
         output = climage.convert('./output/output.png', width=60, is_256color=False, is_truecolor=True, is_unicode=True)
         print(output)
 
-        msg = "Do you want to change something? [content, size, fill_color, back_color, box_size, type, color mask, no]:"
-        choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'mask', 'no'], qr_code)
+        msg = "Do you want to change something? [content, size, fill_color, back_color, box_size, type, color mask, random/rand, no]:"
+        choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'mask', 'random', 'rand', 'no'], qr_code)
         if choice == "content":
             content = get_input("Type the Content which the QR-Code should contains:", qr_code)
             qr_code.set_content(content)
@@ -176,6 +176,9 @@ def change_and_show(qr_code):
                 color_back_val = get_input_color(msg, qr_code)
 
                 qr_code.set_color_mask(mask_val, top_color=color_top_val, bottom_color=color_bottom_val, back_color=color_back_val)
+        elif choice in ['rand', 'random']:
+            print("\nGenerate random qrcode...")
+            qr_code.random_creation()
 
         #elif choice == 'use image':
         #    msg = "Upload an image in the input directory with named as input. Which type is it (png/...):"
@@ -193,6 +196,9 @@ if __name__ == "__main__":
     #if choice == 'create':
     content = get_input("Type the Content which the QR-Code should contains:", None)
     qr_code = qr_code_creator.QR_Code(content)
+
+    print("\nNow you can change some settings or you can set them randomly by the rand keyword. \n\nRecommendation of the house: Generate random qrcodes until you like the look :)\n")
+
     change_and_show(qr_code)
     #elif 'read':
     #    pass
