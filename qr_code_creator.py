@@ -44,7 +44,6 @@ class QR_Code(object):
 
     def set_front_color(self, front_color):
         if type(self.mask) == SolidFillColorMask:
-            print("Heyyy:", front_color)
             self.front_color = front_color
             self.mask = SolidFillColorMask(front_color=front_color, back_color=self.background_color)
         elif type(self.mask) == SquareGradiantColorMask:
