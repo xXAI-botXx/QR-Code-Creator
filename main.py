@@ -5,30 +5,33 @@ import climage
 import os
 
 def exit(qr_code):
-    # delete output and input files -> or remember user
-    choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip)", ['n', 'y', ''])
-    if choice == 'y':
-        # calc name
-        files = os.listdir("./backup")
-        counter = 0
-        name = f"qrcode_{str(counter).zfill(4)}.png"    # variant 1
-        while name in files:
-            counter += 1
-            name = f"qrcode_{counter:04}.png"
+    if qr_code == None:
+        sys.exit()
+    else:
+        # delete output and input files -> or remember user
+        choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip)", ['n', 'y', ''])
+        if choice == 'y':
+            # calc name
+            files = os.listdir("./backup")
+            counter = 0
+            name = f"qrcode_{str(counter).zfill(4)}.png"    # variant 1
+            while name in files:
+                counter += 1
+                name = f"qrcode_{counter:04}.png"
 
-        qr_code.save(path="./backup", name=name)
-    elif choice in ['n', '']:
-        pass
-    elif choice in ['clear']:
-        files = os.listdir("./backup")
-        for file in files:
-            os.remove("./backup"+file)
+            qr_code.save(path="./backup", name=name)
+        elif choice in ['n', '']:
+            pass
+        elif choice in ['clear']:
+            files = os.listdir("./backup")
+            for file in files:
+                os.remove("./backup"+file)
 
-    qr_code = qr_code_creator.QR_Code("make love not fear", fill_color=(240, 70, 50), background_color=(40, 20, 20))
-    qr_code.save(path="./output")
+        qr_code = qr_code_creator.QR_Code("make love not fear", fill_color=(240, 70, 50), background_color=(40, 20, 20))
+        qr_code.save(path="./output")
 
-    # now exit
-    sys.exit()
+        # now exit
+        sys.exit()
 
 def get_input(msg:str, qr_code):
     user_input = input(msg)
@@ -188,7 +191,7 @@ if __name__ == "__main__":
     #choice = get_input_key(msg, ['create', 'read'])
 
     #if choice == 'create':
-    content = get_input("Type the Content which the QR-Code should contains:", qr_code)
+    content = get_input("Type the Content which the QR-Code should contains:", None)
     qr_code = qr_code_creator.QR_Code(content)
     change_and_show(qr_code)
     #elif 'read':
