@@ -36,18 +36,18 @@ def get_input_color(msg:str):
 
     while not_a_color:
         user_input = get_input(msg)
-        if not (user_input.startswith("(") or user_input.startswith("[")):
+        if not user_input.startswith("(") and not user_input.startswith("["):
             user_input = f"({user_input})"
 
-        if not ("," in user_input):
+        if not "," in user_input:
             user_input = user_input.replace(" ", ",")
 
         try:
             color = literal_eval(user_input)
-            if type(color) == tuple or type(color) == list:
+            if type(color) == tuple or type(color) == list and len(color) == 3:
                 check = True
                 for i in color:
-                    if i <= 255 and i >= 0:
+                    if i > 255 and i < 0:
                         check = False
                 if check:
                     not_a_color = False
