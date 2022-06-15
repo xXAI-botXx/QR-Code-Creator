@@ -119,7 +119,7 @@ def change_and_show(qr_code):
         elif choice == 'fill_color':
             msg = "Type a color with 3 values (rgb), like (255, 255, 255):"
             val = get_input_color(msg, qr_code)
-            qr_code.set_fill_color(val)
+            qr_code.set_front_color(val)
         elif choice == 'back_color':
             msg = "Type a color with 3 values (rgb), like (255, 255, 255):"
             val = get_input_color(msg, qr_code)
