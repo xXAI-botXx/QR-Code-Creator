@@ -5,7 +5,12 @@ import climage
 
 def exit():
     # delete output and input files -> or remember user
-    # ...
+    choice = get_input_key("Should I delete the QRCode in the ouptu directory?(y/n)", ['n', 'y'])
+    if choice == 'y':
+        qr_code = qr_code_creator.QR_Code("Love", fill_color=(240, 70, 50), background_color=(40, 20, 20))
+        qr_code.save(path="./output")
+    elif choice == 'n':
+        pass
     # now exit
     sys.exit()
 
@@ -44,7 +49,7 @@ def get_input_color(msg:str):
 
         try:
             color = literal_eval(user_input)
-            if type(color) == tuple or type(color) == list and len(color) == 3:
+            if (type(color) == tuple or type(color) == list) and len(color) == 3:
                 check = True
                 for i in color:
                     if i > 255 and i < 0:
@@ -73,17 +78,17 @@ def change_and_show(qr_code):
         qr_code.save("./output")
 
         print("\n\nQR-Code Preview:\n")
-        output = climage.convert('./output/output.png', width=60, is_256color=True)
+        output = climage.convert('./output/output.png', width=60, is_256color=False, is_truecolor=True, is_unicode=True)
         print(output)
 
         msg = "Do you want to change something? [content, size, fill_color, back_color, box_size, type, color mask, no]:"
-        choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'no'])
+        choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'mask', 'no'])
         if choice == "content":
             content = get_input("Type the Content which the QR-Code should contains:")
             qr_code.set_content(content)
         elif choice == 'no':
             print("Nice, your QR-Code is in the ouput directory.")
-            break
+            exit()
         elif choice == 'size':
             msg = "Type a number from 1 to 40:"
             val = get_input_between(msg, 1, 40, int)
@@ -104,14 +109,14 @@ def change_and_show(qr_code):
             msg = "Type square, rounded, circle, gapped square, vertical bar or horizontal bar:"
             val = get_input_key(msg, ['off', 'square', 'rounded', 'circle', 'gapped square', 'vertical bar', 'horizontal bar'])
             qr_code.set_draw_type(val)
-        elif choice in ['mask', 'color mask', 'color_mask']:
+        elif choice in ['mask', 'color mask']:
             msg = "Type solid fill, square gradient, radial gradient, horizontal or vertical:"
             mask_val = get_input_key(msg, ["solid fill", "square gradient", "radial gradient", \
                                             "horizontal gradient", "horizontal", "vertical gradient", "vertical"])
 
-            if mask == 'off':
+            if mask_val == 'off':
                 qr_code.set_color_mask(mask_val)
-            elif mask == "solid fill":
+            elif mask_val == "solid fill":
                 msg = "Type a color for front with 3 values (rgb), normal is (0,0,0):"
                 color_front_val = get_input_color(msg)
 
@@ -119,7 +124,7 @@ def change_and_show(qr_code):
                 color_back_val = get_input_color(msg)
 
                 qr_code.set_color_mask(mask_val, front_color=color_front_val,back_color=color_back_val)
-            elif mask in ["radial gradient", "square gradient"]:
+            elif mask_val in ["radial gradient", "square gradient"]:
                 msg = "Type a color for the center with 3 values (rgb), normal is (255, 255, 255):"
                 color_center_val = get_input_color(msg)
 
@@ -130,7 +135,7 @@ def change_and_show(qr_code):
                 color_back_val = get_input_color(msg)
 
                 qr_code.set_color_mask(mask_val, center_color=color_center_val, edge_color=color_edge_val, back_color=color_back_val)
-            elif mask in ["horizontal gradient", "horizontal"]:
+            elif mask_val in ["horizontal gradient", "horizontal"]:
                 msg = "Type a color for the left with 3 values (rgb), normal is (0,0,0):"
                 color_left_val = get_input_color(msg)
 
@@ -141,7 +146,7 @@ def change_and_show(qr_code):
                 color_back_val = get_input_color(msg)
 
                 qr_code.set_color_mask(mask_val, left_color=color_left_val, right_color=color_right_val, back_color=color_back_val)
-            elif mask in ["vertical gradient", "vertical"]:
+            elif mask_val in ["vertical gradient", "vertical"]:
                 msg = "Type a color for the top with 3 values (rgb), normal is (0,0,0):"
                 color_top_val = get_input_color(msg)
 
