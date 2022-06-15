@@ -59,7 +59,7 @@ class QR_Code(object):
             self.top_color = front_color
             self.mask = VerticalGradiantColorMask(back_color=self.background_color, top_color=front_color, bottom_color=self.bottom_color)
 
-    def set_backgound_color(self, background_color):
+    def set_background_color(self, background_color):
         self.bottom_color = background_color
 
         if type(self.mask) == SolidFillColorMask:
