@@ -19,6 +19,10 @@ def exit():
         qr_code.save(path="./backup", name=name)
     elif choice in ['n', '']:
         pass
+    elif choice in ['clear']:
+        files = os.listdir("./backup")
+        for file in files:
+            os.remove("./backup"+file)
 
     qr_code = qr_code_creator.QR_Code("make love not fear", fill_color=(240, 70, 50), background_color=(40, 20, 20))
     qr_code.save(path="./output")
