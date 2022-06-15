@@ -2,10 +2,31 @@ import qr_code_creator
 import sys
 from ast import literal_eval
 import climage
+import os
 
 def exit():
     # delete output and input files -> or remember user
-    # ...
+    choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip)", ['n', 'y', ''])
+    if choice == 'y':
+        # calc name
+        files = os.listdir("./backup")
+        counter = 0
+        name = f"qrcode_{str(counter).zfill(4)}.png"    # variant 1
+        while name in files:
+            counter += 1
+            name = f"qrcode_{counter:04}.png"
+
+        qr_code.save(path="./backup", name=name)
+    elif choice in ['n', '']:
+        pass
+    elif choice in ['clear']:
+        files = os.listdir("./backup")
+        for file in files:
+            os.remove("./backup"+file)
+
+    qr_code = qr_code_creator.QR_Code("make love not fear", fill_color=(240, 70, 50), background_color=(40, 20, 20))
+    qr_code.save(path="./output")
+
     # now exit
     sys.exit()
 
@@ -36,18 +57,18 @@ def get_input_color(msg:str):
 
     while not_a_color:
         user_input = get_input(msg)
-        if not (user_input.startswith("(") or user_input.startswith("[")):
+        if not user_input.startswith("(") and not user_input.startswith("["):
             user_input = f"({user_input})"
 
-        if not ("," in user_input):
+        if not "," in user_input:
             user_input = user_input.replace(" ", ",")
 
         try:
             color = literal_eval(user_input)
-            if type(color) == tuple or type(color) == list:
+            if (type(color) == tuple or type(color) == list) and len(color) == 3:
                 check = True
                 for i in color:
-                    if i <= 255 and i >= 0:
+                    if i > 255 and i < 0:
                         check = False
                 if check:
                     not_a_color = False
@@ -73,17 +94,17 @@ def change_and_show(qr_code):
         qr_code.save("./output")
 
         print("\n\nQR-Code Preview:\n")
-        output = climage.convert('./output/output.png', width=60, is_256color=True)
+        output = climage.convert('./output/output.png', width=60, is_256color=False, is_truecolor=True, is_unicode=True)
         print(output)
 
         msg = "Do you want to change something? [content, size, fill_color, back_color, box_size, type, color mask, no]:"
-        choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'no'])
+        choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'mask', 'no'])
         if choice == "content":
             content = get_input("Type the Content which the QR-Code should contains:")
             qr_code.set_content(content)
         elif choice == 'no':
             print("Nice, your QR-Code is in the ouput directory.")
-            break
+            exit()
         elif choice == 'size':
             msg = "Type a number from 1 to 40:"
             val = get_input_between(msg, 1, 40, int)
@@ -104,18 +125,55 @@ def change_and_show(qr_code):
             msg = "Type square, rounded, circle, gapped square, vertical bar or horizontal bar:"
             val = get_input_key(msg, ['off', 'square', 'rounded', 'circle', 'gapped square', 'vertical bar', 'horizontal bar'])
             qr_code.set_draw_type(val)
-        elif choice in ['mask', 'color mask', 'color_mask']:
-            msg = "Type solid fill, square gradient, radial gradient, horizontal gradient or vertical gradient:"
-            mask_val = get_input_key(msg, ["solid fill", "square gradient", "radial gradient"\
-                                            "horizontal gradient", "vertical gradient"])
+        elif choice in ['mask', 'color mask']:
+            msg = "Type solid fill, square gradient, radial gradient, horizontal or vertical:"
+            mask_val = get_input_key(msg, ["solid fill", "square gradient", "radial gradient", \
+                                            "horizontal gradient", "horizontal", "vertical gradient", "vertical"])
 
-            msg = "Type a color for front with 3 values (rgb), normal is (255, 255, 255):"
-            color_front_val = get_input_color(msg)
+            if mask_val == 'off':
+                qr_code.set_color_mask(mask_val)
+            elif mask_val == "solid fill":
+                msg = "Type a color for front with 3 values (rgb), normal is (0,0,0):"
+                color_front_val = get_input_color(msg)
 
-            msg = "Type a color for background with 3 values (rgb), normal is (0,0,0)):"
-            color_back_val = get_input_color(msg)
+                msg = "Type a color for background with 3 values (rgb), normal is (255,255,255)):"
+                color_back_val = get_input_color(msg)
 
-            qr_code.set_color_mask(mask_val, color_front_val, color_back_val)
+                qr_code.set_color_mask(mask_val, front_color=color_front_val,back_color=color_back_val)
+            elif mask_val in ["radial gradient", "square gradient"]:
+                msg = "Type a color for the center with 3 values (rgb), normal is (255, 255, 255):"
+                color_center_val = get_input_color(msg)
+
+                msg = "Type a color for the edge/limit with 3 values (rgb), normal is (0, 0, 255):"
+                color_edge_val = get_input_color(msg)
+
+                msg = "Type a color for the background with 3 values (rgb), normal is (255,255,255)):"
+                color_back_val = get_input_color(msg)
+
+                qr_code.set_color_mask(mask_val, center_color=color_center_val, edge_color=color_edge_val, back_color=color_back_val)
+            elif mask_val in ["horizontal gradient", "horizontal"]:
+                msg = "Type a color for the left with 3 values (rgb), normal is (0,0,0):"
+                color_left_val = get_input_color(msg)
+
+                msg = "Type a color for the right with 3 values (rgb), normal is (0, 0, 255):"
+                color_right_val = get_input_color(msg)
+
+                msg = "Type a color for the background with 3 values (rgb), normal is (255,255,255)):"
+                color_back_val = get_input_color(msg)
+
+                qr_code.set_color_mask(mask_val, left_color=color_left_val, right_color=color_right_val, back_color=color_back_val)
+            elif mask_val in ["vertical gradient", "vertical"]:
+                msg = "Type a color for the top with 3 values (rgb), normal is (0,0,0):"
+                color_top_val = get_input_color(msg)
+
+                msg = "Type a color for the bottom with 3 values (rgb), normal is (0, 0, 255):"
+                color_bottom_val = get_input_color(msg)
+
+                msg = "Type a color for the background with 3 values (rgb), normal is (255,255,255)):"
+                color_back_val = get_input_color(msg)
+
+                qr_code.set_color_mask(mask_val, top_color=color_top_val, bottom_color=color_bottom_val, back_color=color_back_val)
+
         #elif choice == 'use image':
         #    msg = "Upload an image in the input directory with named as input. Which type is it (png/...):"
         #    val = get_input(msg)

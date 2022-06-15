@@ -56,19 +56,23 @@ class QR_Code(object):
         self.box_size = box_size
         self.create_qr_code()
 
-    def set_color_mask(self, mask, front_color=(0,0,0), back_color=(255,255,255)):
+    def set_color_mask(self, mask, front_color=(0,0,0), back_color=(255,255,255), center_color=(0,0,0), \
+                                    edge_color=(0, 0, 255), left_color=(0, 0, 0), right_color=(0, 0, 255), \
+                                    top_color=(0, 0, 0), bottom_color=(0, 0, 255)):
         if mask == 'off':
-            self.mask = SolidFillColorMask(front_color=(0,0,0), back_color=(255,255,255))
+            self.mask = SolidFillColorMask(front_color=front_color, back_color=back_color)
         elif mask == "solid fill":
             self.mask = SolidFillColorMask(front_color=front_color, back_color=back_color)
         elif mask == "square gradient":
-            self.mask = SquareGradiantColorMask(front_color=front_color, back_color=back_color)
+            self.mask = SquareGradiantColorMask(back_color=back_color, center_color=center_color, edge_color=edge_color)
         elif mask == "radial gradient":
-            self.mask = RadialGradiantColorMask(front_color=front_color, back_color=back_color)
-        elif mask == "horizontal gradient":
-            self.mask = HorizontalGradiantColorMask(front_color=front_color, back_color=back_color)
-        elif mask == "vertical gradient":
-            self.mask = VerticalGradiantColorMask(front_color=front_color, back_color=back_color)
+            self.mask = RadialGradiantColorMask(back_color=back_color, center_color=center_color, edge_color=edge_color)
+        elif mask in ["horizontal gradient", "horizontal"]:
+            self.mask = HorizontalGradiantColorMask(back_color=back_color, left_color=left_color, right_color=right_color)
+        elif mask in ["vertical gradient", "vertical"]:
+            self.mask = VerticalGradiantColorMask(back_color=back_color, top_color=top_color, bottom_color=bottom_color)
+        else:
+            raise ValueError('Dont know this color mask')
         #elif mask == "image":
         #    self.mask = ImageColorMask(front_color=front_color, back_color=back_color)
 
@@ -100,12 +104,15 @@ class QR_Code(object):
         #self.created_qr_code.make(fit=True)
 
     def save(self, path:str, name="output.png", img_path="./input", img_name="input"):
+        if not hasattr(self, 'created_qr_code'):
+            self.create_qr_code()
+
         if self.img_back == True:
             self.img = self.created_qr_code.make_image(fill_color=self.fill_color, back_color=self.background_color, image_factory=StyledPilImage, color_mask=self.mask, \
                                                                     module_drawer=self.draw_type, embeded_image_path=img_path+"/"+img_name+"."+self.img_type)
         else:
            self.img = self.created_qr_code.make_image(fill_color=self.fill_color, back_color=self.background_color, image_factory=StyledPilImage, \
-                                                                    module_drawer=self.draw_type, color_mask=self.mask) 
+                                                                    module_drawer=self.draw_type, color_mask=self.mask) #module_drawer=self.draw_type,
 
         self.img.save(path+"/"+name)
 
