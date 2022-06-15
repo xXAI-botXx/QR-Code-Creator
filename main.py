@@ -9,7 +9,7 @@ def exit(qr_code):
         sys.exit()
     else:
         # delete output and input files -> or remember user
-        choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip)", ['n', 'y', ''])
+        choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip)", ['n', 'y', ''], qr_code)
         if choice == 'y':
             # calc name
             files = os.listdir("./backup")
@@ -45,7 +45,7 @@ def get_input_between(msg, min, max, type_, qr_code):
     wrong_input = True
 
     while wrong_input:
-        user_input = get_input(msg)
+        user_input = get_input(msg, qr_code)
         try:
             value = type_(user_input)
             if value >= min and value <= max:
@@ -59,7 +59,7 @@ def get_input_color(msg:str, qr_code):
     not_a_color = True
 
     while not_a_color:
-        user_input = get_input(msg)
+        user_input = get_input(msg, qr_code)
         if not user_input.startswith("(") and not user_input.startswith("["):
             user_input = f"({user_input})"
 
@@ -83,10 +83,10 @@ def get_input_color(msg:str, qr_code):
     return user_input
 
 def get_input_key(msg:str, keys:list, qr_code):
-    user_input = get_input(msg)
+    user_input = get_input(msg, qr_code)
 
     while user_input not in keys:
-        user_input = get_input(msg)
+        user_input = get_input(msg, qr_code)
 
     return user_input
 
