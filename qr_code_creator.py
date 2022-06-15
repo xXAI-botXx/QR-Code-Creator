@@ -21,7 +21,7 @@ from qrcode.image.styles.colormasks import VerticalGradiantColorMask
 
 class QR_Code(object):
 
-    def __init__(self, content:str, front_color='black', background_color='white', border=4, size=1, box_size=10, \
+    def __init__(self, content:str, front_color=(0,0,0), background_color=(255,255,255), border=4, size=1, box_size=10, \
                                     draw_type=SquareModuleDrawer(), mask=SolidFillColorMask(front_color=(0,0,0), \
                                     back_color=(255,255,255)), center_color=(0,0,0), \
                                     edge_color=(0, 0, 255), left_color=(0, 0, 0), right_color=(0, 0, 255), \
@@ -44,6 +44,7 @@ class QR_Code(object):
 
     def set_front_color(self, front_color):
         if type(self.mask) == SolidFillColorMask:
+            print("Heyyy:", front_color)
             self.front_color = front_color
             self.mask = SolidFillColorMask(front_color=front_color, back_color=self.background_color)
         elif type(self.mask) == SquareGradiantColorMask:

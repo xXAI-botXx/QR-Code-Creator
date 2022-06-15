@@ -9,7 +9,7 @@ def exit(qr_code):
         sys.exit()
     else:
         # delete output and input files -> or remember user
-        choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip)", ['n', 'y', ''], qr_code)
+        choice = get_input_key("Do you want your QR Code saved in backup?(y/n or nothing to skip):", ['n', 'y', ''], qr_code)
         if choice == 'y':
             # calc name
             files = os.listdir("./backup")
@@ -27,7 +27,7 @@ def exit(qr_code):
             for file in files:
                 os.remove("./backup"+file)
 
-        qr_code = qr_code_creator.QR_Code("make love not fear", fill_color=(240, 70, 50), background_color=(40, 20, 20))
+        qr_code = qr_code_creator.QR_Code("make love not fear", front_color=(240, 70, 50), background_color=(40, 20, 20))
         qr_code.save(path="./output")
 
         # now exit
