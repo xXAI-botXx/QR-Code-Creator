@@ -44,6 +44,12 @@ class QR_Code(object):
         else:
             raise ValueError("The given content isn't valuable for the QR-Code!")
 
+    def __del__(self):
+        self.reset()
+
+    def __exit__(self, exception_type, exception_value, exception_traceback):
+        self.reset()
+
     def set_front_color(self, front_color):
         if type(self.mask) == SolidFillColorMask:
             self.front_color = front_color
