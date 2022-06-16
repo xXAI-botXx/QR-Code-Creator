@@ -143,6 +143,22 @@ class QR_Code(object):
         self.content = content
         self.create_qr_code()
 
+    def reset(self):
+        self.front_color=(0,0,0)
+        self.background_color=(255,255,255)
+        self.border=4
+        self.size=1
+        self.box_size=10
+        self.draw_type=SquareModuleDrawer()
+        self.mask=SolidFillColorMask(front_color=(0,0,0), back_color=(255,255,255))
+        self.center_color=(0,0,0)
+        self.edge_color=(0, 0, 255)
+        self.left_color=(0, 0, 0)
+        self.right_color=(0, 0, 255)
+        self.top_color=(0, 0, 0)
+        self.bottom_color=(0, 0, 255)
+        self.img_back=False
+
     def create_qr_code(self):
         self.created_qr_code = qrcode.QRCode(border=self.border, version=self.size, box_size=self.box_size)
         self.created_qr_code.add_data(self.content)
