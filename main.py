@@ -209,10 +209,9 @@ def get_new_output(qr_code):
 
 
 if __name__ == "__main__":
-    #msg = "Do you want to create a QR-Code or read one? Type create or read:"
-    #choice = get_input_key(msg, ['create', 'read'])
 
-    #if choice == 'create':
+    print(">>>HINT<<<\nDon't use critical/private data which should be hidden from public...\n")
+
     content = get_input("Type the Content which the QR-Code should contains:", None)
     qr_code = qr_code_creator.QR_Code(content)
     qr_code.create_qr_code()
@@ -228,5 +227,4 @@ if __name__ == "__main__":
     while True:
         get_new_output(qr_code)
         change_and_show(qr_code)
-    #elif 'read':
-    #    pass
+
