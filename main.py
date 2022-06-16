@@ -213,6 +213,8 @@ if __name__ == "__main__":
     #if choice == 'create':
     content = get_input("Type the Content which the QR-Code should contains:", None)
     qr_code = qr_code_creator.QR_Code(content)
+    qr_code.create_qr_code()
+    qr_code.save("./output")
 
     print("\n\nQR-Code Preview:\n")
     output = climage.convert('./output/output.png', width=60, is_256color=False, is_truecolor=True, is_unicode=True)
