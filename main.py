@@ -219,6 +219,7 @@ if __name__ == "__main__":
     print("\n\nQR-Code Preview:\n")
     output = climage.convert('./output/output.png', width=60, is_256color=False, is_truecolor=True, is_unicode=True)
     print(output)
+    print("Type:", qr_code.type_as_str())
 
     #print("\nNow you can change some settings or you can set them randomly by the rand keyword. \n\nRecommendation of the house: Generate random qrcodes until you like the look :)\n")
 

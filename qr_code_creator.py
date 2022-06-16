@@ -165,6 +165,20 @@ class QR_Code(object):
         self.bottom_color=(0, 0, 255)
         self.img_back=False
 
+    def type_as_str(self):
+        if type(self.draw_type) == SquareModuleDrawer:
+            return "Squares (normal)"
+        elif type(self.draw_type) == RoundedModuleDrawer:
+            return "Rounded Squares"
+        elif type(self.draw_type) == GappedSquareModuleDrawer:
+            return "Squares with gaps"
+        elif type(self.draw_type) == CircleModuleDrawer:
+            return "Circles"
+        elif type(self.draw_type) == VerticalBarsDrawer:
+            return "Vertical Bars"
+        elif type(self.draw_type) == HorizontalBarsDrawer:
+            return "Horizontal Bars"
+
     def create_qr_code(self):
         self.created_qr_code = qrcode.QRCode(border=self.border, version=self.size, box_size=self.box_size)
         self.created_qr_code.add_data(self.content)
