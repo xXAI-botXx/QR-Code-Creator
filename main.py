@@ -99,6 +99,7 @@ def change_and_show(qr_code):
         print("\n\nQR-Code Preview:\n")
         output = climage.convert('./output/output.png', width=60, is_256color=False, is_truecolor=True, is_unicode=True)
         print(output)
+        print("Type:", qr_code.type_as_str())
 
         msg = "What do you want to change? [content, size, fill_color, back_color, box_size, type, color mask, reset, back]:"
         choice = get_input_key(msg, ['content', 'size', 'fill_color', 'back_color', 'box_size', 'type', 'color mask', 'mask', 'reset', 'back'], qr_code)
@@ -200,6 +201,7 @@ def get_new_output(qr_code):
             print("\n\nQR-Code Preview:\n")
             output = climage.convert('./output/output.png', width=60, is_256color=False, is_truecolor=True, is_unicode=True)
             print(output)
+            print("Type:", qr_code.type_as_str())
 
             print("\nIf you are satisfied, download the qr-code in the output folder.\nYou always can type exit for leaving.\n")
         elif choice == 'change':
