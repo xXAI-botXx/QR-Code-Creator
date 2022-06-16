@@ -14,14 +14,14 @@ Replit Application for creating a QR-Code
 ### Sample Generations
 
 <div style="float:left;margin:10px" align=center>
-<img src="./img/img_01.png"></img>
-<img src="./img/img_02.png"></img>
-<img src="./img/img_03.png"></img>
-<img src="./img/img_04.png"></img>
-<img src="./img/img_05.png"></img>
-<img src="./img/img_06.png"></img>
-<img src="./img/img_07.png"></img>
-<img src="./img/img_08.png"></img>
+<img src="./img/img_01.png" width=150px></img>
+<img src="./img/img_02.png" width=150px></img>
+<img src="./img/img_03.png" width=150px></img>
+<img src="./img/img_04.png" width=150px></img>
+<img src="./img/img_05.png" width=150px></img>
+<img src="./img/img_06.png" width=150px></img>
+<img src="./img/img_07.png" width=150px></img>
+<img src="./img/img_08.png" width=150px></img>
 </div>
 
 ---
