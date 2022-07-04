@@ -198,8 +198,9 @@ class QR_Code(object):
         self.top_color = QR_Code.random_color()
         self.bottom_color = QR_Code.random_color()
 
-        self.draw_type  = random.choice([SquareModuleDrawer(), RoundedModuleDrawer(), GappedSquareModuleDrawer(), \
-                                        CircleModuleDrawer(), VerticalBarsDrawer(), HorizontalBarsDrawer()])
+        #self.draw_type  = random.choice([SquareModuleDrawer(), RoundedModuleDrawer(), GappedSquareModuleDrawer(), \
+        #                                CircleModuleDrawer(), VerticalBarsDrawer(), HorizontalBarsDrawer()])
+        self.draw_type  = SquareModuleDrawer()
 
         self.mask = random.choice([
                                 SolidFillColorMask(front_color=self.front_color, back_color=self.background_color), 
